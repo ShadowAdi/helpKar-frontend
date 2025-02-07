@@ -9,6 +9,8 @@ interface CustomTextInputProps {
   isValid?: boolean;
   secureTextEntry?: boolean;
   keyboardType?: "default" | "email-address" | "phone-pad" | "numeric";
+  multiline?: boolean;
+  numberOfLines?: number;
 }
 
 const CustomTextInput: React.FC<CustomTextInputProps> = ({
@@ -18,6 +20,8 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
   isValid = true,
   secureTextEntry = false,
   keyboardType = "default",
+  multiline = false,
+  numberOfLines = 1,
 }) => {
   const [isPasswordVisible, setPasswordVisible] = useState(!secureTextEntry);
 
@@ -37,6 +41,8 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
         <TextInput
           placeholder={placeHolderText}
           placeholderTextColor={"#f0f0f090"}
+          multiline={multiline}
+          numberOfLines={numberOfLines}
           style={{
             flex: 1,
             color: Colors.whiteColor,

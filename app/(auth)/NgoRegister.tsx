@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  TextInput,
-} from "react-native";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import React, { useState } from "react";
 import { Link, useRouter } from "expo-router";
 import { Colors } from "@/Styles/GlobalColors";
@@ -31,6 +25,8 @@ const NgoRegister = () => {
     areas: "Manhattan, Brooklyn, Queens",
     pincodes: "10001, 11201, 11375",
     fields: "Education, Healthcare, Community Support",
+    ngoProfile:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNt2dcHwjf_ROGR2WM1JHPQuOQgq6FsOs2VA&s",
   });
   const router = useRouter();
 
@@ -58,6 +54,7 @@ const NgoRegister = () => {
       },
       projectManager: form.projectManager,
       projectManagerEmail: form.projectManagerEmail,
+      ngoProfile: form.ngoProfile,
       socialMediaLinks: {
         facebook: form.facebook,
         twitter: form.twitter,
@@ -95,10 +92,7 @@ const NgoRegister = () => {
       );
 
       const result = await response.json();
-
-
       if (response.ok) {
-        
         router.push("/NgoLogin");
       } else {
         alert(`Error: ${result.message}`);
@@ -151,6 +145,8 @@ const NgoRegister = () => {
             keyboardType="phone-pad"
           />
           <CustomTextInput
+            multiline={true}
+            numberOfLines={10}
             placeHolderText="Description"
             setText={(text) => handleChange("description", text)}
             text={form.description}
@@ -229,6 +225,13 @@ const NgoRegister = () => {
             placeHolderText="Fields We Work In (comma-separated)"
             setText={(text) => handleChange("fields", text)}
             text={form.fields}
+          />
+          <CustomTextInput
+            multiline={true}
+            numberOfLines={8}
+            placeHolderText="Ngo Profile Url"
+            setText={(text) => handleChange("ngoProfile", text)}
+            text={form.ngoProfile}
           />
         </View>
         <TouchableOpacity

@@ -1,27 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { Alert, StyleSheet, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { getCurrentLocation, LocationObject } from "@/utils/GetCurrentLocation";
 import { useRouter } from "expo-router";
+import { Colors } from "@/Styles/GlobalColors";
 
 const HomeScreen = () => {
   const [location, setLocation] = useState<LocationObject | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [issues, setIssues] = useState<null | [] | any[]>(null);
   const router = useRouter();
+  const [isLocationLoading, setIsLocationLoading] = useState(true);
 
   useEffect(() => {
     const fetchLocation = async () => {
+      setIsLocationLoading(true);
       try {
         const loc = await getCurrentLocation({ setLocation });
         setLocation(loc);
-        console.log("Location latitude ", loc.coords.latitude);
-        console.log("Location longitude ", loc.coords.longitude);
 
         fetchNearbyIssues(loc.coords.latitude, loc.coords.longitude);
       } catch (err: any) {
         setError(err.message);
         console.error("Error in component:", err);
+      } finally {
+        setIsLocationLoading(false);
       }
     };
 
@@ -47,52 +50,67 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        region={
-          location
-            ? {
+      {isLocationLoading ? (
+        <View
+          style={{
+            width: "100%",
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 18, color: Colors.primaryColor }}>
+            Loading your location...
+          </Text>
+        </View>
+      ) : (
+        <MapView
+          style={styles.map}
+          region={
+            location
+              ? {
+                  latitude: location.coords.latitude,
+                  longitude: location.coords.longitude,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+                }
+              : {
+                  latitude: 26.8321088,
+                  longitude: 80.9101754,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+                }
+          }
+        >
+          {location && (
+            <Marker
+              coordinate={{
                 latitude: location.coords.latitude,
                 longitude: location.coords.longitude,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-              }
-            : {
-                latitude: 37.78825,
-                longitude: -122.4324,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-              }
-        }
-      >
-        {location && (
-          <Marker
-            coordinate={{
-              latitude: location.coords.latitude,
-              longitude: location.coords.longitude,
-            }}
-            title="My Location"
-            description="You are here"
-          />
-        )}
-        {issues &&
-          issues.length > 0 &&
-          issues.map((issue, index) => (
-            <Marker
-              onPress={() => {
-                router.push(`../(issues)/${issue._id}`);
               }}
-              key={index}
-              coordinate={{
-                latitude: issue.location.coordinates[1], // Fixed: accessing nested coordinates
-                longitude: issue.location.coordinates[0], // Fixed: accessing nested coordinates
-              }}
-              title={issue.issueName}
-              description={issue.issueDescription}
-              pinColor="red"
+              title="My Location"
+              description="You are here"
             />
-          ))}
-      </MapView>
+          )}
+          {issues &&
+            issues.length > 0 &&
+            issues.map((issue, index) => (
+              <Marker
+                onPress={() => {
+                  router.push(`../(issues)/${issue._id}`);
+                }}
+                key={index}
+                coordinate={{
+                  latitude: issue.location.coordinates[1], // Fixed: accessing nested coordinates
+                  longitude: issue.location.coordinates[0], // Fixed: accessing nested coordinates
+                }}
+                title={issue.issueName}
+                description={issue.issueDescription}
+                pinColor="green"
+              />
+            ))}
+        </MapView>
+      )}
     </View>
   );
 };

@@ -1,15 +1,33 @@
-// app/(tabs)/_layout.jsx
-import { Tabs } from "expo-router";
-import { Feather } from "@expo/vector-icons"; // or any other icon set you prefer
-import { Colors } from "@/Styles/GlobalColors";
+import { useEffect, useState, useContext } from "react";
+import { Tabs, Redirect } from "expo-router";
+import { AntDesign, Feather } from "@expo/vector-icons";
+import { AuthContext } from "@/context/UserContext";
 
 export default function TabsLayout() {
+  const auth = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
+  if (isLoading || !auth) {
+    return null;
+  }
+
+  // If trying to access protected routes without auth, redirect to auth choice screen
+  if (!auth?.user && !auth?.token) {
+    return <Redirect href="/auth/AuthChoiceScreen" />;
+  }
+
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors.primaryColor,
-        tabBarInactiveTintColor: "#dadada",
-        headerShown: false, // or true if you want headers
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: "#000000",
+          flexDirection: "row",
+        },
       }}
     >
       <Tabs.Screen
@@ -21,24 +39,41 @@ export default function TabsLayout() {
           ),
         }}
       />
+      
       <Tabs.Screen
-        name="search"
+        name="Discover"
         options={{
-          tabBarLabel: "Search",
+          tabBarLabel: "Discover",
           tabBarIcon: ({ color, size }) => (
-            <Feather name="search" size={size} color={color} />
+            <Feather name="compass" size={size} color={color} />
           ),
         }}
       />
-      <Tabs.Screen
-        name="Profile"
-        options={{
-          tabBarLabel: "Profile",
-          tabBarIcon: ({ color, size }) => (
-            <Feather name="user" size={size} color={color} />
-          ),
-        }}
-      />
+
+      {auth?.user && auth?.role === "user" && (
+        <Tabs.Screen
+          name="add"
+          options={{
+            tabBarLabel: "Add",
+            tabBarIcon: ({ color, size }) => (
+              <AntDesign name="pluscircle" size={24} color="black" />
+            ),
+          }}
+        />
+      )}
+
+      {auth?.user && (
+        <Tabs.Screen
+          name="Profile"
+          options={{
+            tabBarLabel: "Profile",
+            href: auth?.user ? "/Profile" : "/auth/AuthChoiceScreen",
+            tabBarIcon: ({ color, size }) => (
+              <Feather name="user" size={size} color={color} />
+            ),
+          }}
+        />
+      )}
     </Tabs>
   );
 }

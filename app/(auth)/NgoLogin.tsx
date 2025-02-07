@@ -29,10 +29,13 @@ const NgoLogin = () => {
       );
 
       const result = await response.json();
-      const { message, token } = result;
+      const { message, token,role } = result;
 
       if (response.ok) {
         SaveToken("token", token);
+        SaveToken("role", role);
+
+
         alert(message);
         router.push("/(tabs)/Home");
       } else {

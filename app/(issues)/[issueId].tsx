@@ -294,8 +294,15 @@ const SingleIssueScreen = () => {
           {userAuth?.role === "ngo" ? (
             <TouchableOpacity
               onPress={() => {
-                
-                GetAccessOfIssue();
+                if (
+                  singleIssueData?.assignedTo?.ngoIds?.some(
+                    (ngo: any) => ngo._id === userAuth?.user?._id
+                  )
+                ) {
+                  push(`./resolved/${issueId}`);
+                } else {
+                  GetAccessOfIssue();
+                }
               }}
               style={{
                 paddingVertical: 12,

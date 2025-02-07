@@ -28,7 +28,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const loadUserData = async () => {
       const token = await GetItemFromLocalStorage("token");
       const role = await GetItemFromLocalStorage("role");
-      console.log("Role ",role)
 
       if (token && role) {
         setToken(token);
@@ -74,7 +73,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     await SecureStore.deleteItemAsync("role");
   };
 
-  console.log("token ",token)
 
   return (
     <AuthContext.Provider value={{ user, role, token, logout, login }}>

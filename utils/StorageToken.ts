@@ -6,6 +6,5 @@ export async function SaveToken(key: string, value: string) {
 
 export async function GetItemFromLocalStorage(key: string): Promise<string | null> {
   let result = await SecureStore.getItemAsync(key);
-  console.log("result ",result)
   return result;
 }

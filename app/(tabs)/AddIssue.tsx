@@ -278,7 +278,6 @@ const AddIssue = () => {
       );
 
       const result = await response.json();
-      console.log("Result ", result);
 
       if (response.ok) {
         router.push("/Discover");
@@ -454,15 +453,9 @@ const AddIssue = () => {
                     title="Selected Location"
                     description="Issue location"
                     draggable={true}
-                    onDragStart={(e) => {
-                      console.log("Drag started");
-                    }}
-                    onDrag={(e) => {
-                      console.log("Dragging");
-                    }}
+                   
                     onDragEnd={(e) => {
                       updateLocationState(e.nativeEvent.coordinate);
-                      console.log("Drag ended");
                     }}
                   />
                 )}

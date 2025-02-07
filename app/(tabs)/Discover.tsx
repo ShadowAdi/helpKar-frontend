@@ -43,7 +43,6 @@ const DiscoverScreen = () => {
           `http://192.168.29.209:3000/api/ngos/allNgos`
         );
         const data = await response.json();
-        console.log("ngo ", data);
         if (response.status === 200) {
           setNgos(data.data);
         }
@@ -52,7 +51,6 @@ const DiscoverScreen = () => {
         Alert.alert("Error", "Could not fetch  Ngos.");
       }
     };
-    console.log("State Ngos ", ngos);
     fetchIssues();
     fetchNgos();
   }, [activeTabBar]);

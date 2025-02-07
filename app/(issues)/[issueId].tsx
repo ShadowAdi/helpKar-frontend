@@ -31,7 +31,6 @@ const SingleIssueScreen = () => {
     setLocationLoading(true);
     try {
       if (!issueId) return;
-      console.log("Fetching issue with ID:", issueId);
       const response = await fetch(
         `http://192.168.29.209:3000/api/issues/issues/${issueId}`
       );
@@ -61,7 +60,6 @@ const SingleIssueScreen = () => {
   const handleUpVote = async () => {
     const token = await GetItemFromLocalStorage("token");
     if (!token) {
-      console.log("Token does not exist");
       return null;
     }
     try {

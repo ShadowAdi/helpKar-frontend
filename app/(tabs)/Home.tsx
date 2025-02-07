@@ -38,7 +38,6 @@ const HomeScreen = () => {
       );
       const data = await response.json();
       if (data.success) {
-        console.log("Nearby issues data: ", data);
         setIssues(data.issues);
       }
     } catch (error) {

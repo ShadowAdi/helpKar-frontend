@@ -97,9 +97,9 @@ const ResolvedIssuePage = () => {
       };
 
       const response = await fetch(
-        "http://192.168.29.209:3000/api/issues/issue",
+        "http://192.168.29.209:3000/api/ngos/issue-resolved/"+issueId,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -109,17 +109,16 @@ const ResolvedIssuePage = () => {
       );
 
       const result = await response.json();
-      console.log("Result ", result);
 
       if (response.ok) {
         push("/Discover");
       } else {
         console.error("Creation Error:", result);
-        alert("Failed to create issue. Please try again.");
+        alert("Failed to solved the issue. Please try again.");
       }
     } catch (error) {
       console.error("Creation Error:", error);
-      alert("Failed to create issue. Please try again.");
+      alert("Failed to solved the issue. Please try again.");
     }
   };
 
@@ -128,7 +127,7 @@ const ResolvedIssuePage = () => {
       style={{
         flex: 1,
         width: "100%",
-        backgroundColor: "#f0f0f0",
+        backgroundColor: Colors.blackColor,
         gap: 24,
         paddingVertical: 20,
         paddingHorizontal: 14,
@@ -182,6 +181,9 @@ const ResolvedIssuePage = () => {
           </View>
         )}
       </View>
+      <TouchableOpacity onPress={handleCreateIssue} style={styles.submitButton}>
+        <Text style={styles.submitButtonText}>Send The Solution</Text>
+      </TouchableOpacity>
     </View>
   );
 };

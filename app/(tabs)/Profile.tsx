@@ -255,8 +255,7 @@ const Profile = () => {
       </View>
     );
   }
-  console.log("Token ", auth.token);
-  console.log("Auth ", auth.user);
+
 
   return (
     <ScrollView

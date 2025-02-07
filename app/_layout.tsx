@@ -20,9 +20,7 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
-    console.log("isLoading:", isLoading);
-    console.log("isLoggedIn:", isLoggedIn);
-    console.log("Segments:", segments);
+
 
     if (!isLoading) {
       const firstSegment = segments[0] as string | undefined;
@@ -33,12 +31,10 @@ export default function RootLayout() {
       const isAtRoot = firstSegment === "_sitemap" || !firstSegment;
 
       if (!isLoggedIn && isOnTabsScreen) {
-        console.log("Redirecting to AuthChoiceScreen...");
         router.replace("/(auth)/AuthChoiceScreen");
       }
 
       if (isLoggedIn && isOnAuthScreen) {
-        console.log("Redirecting to Home...");
         router.replace("/(tabs)/Home");
       } else if (
         !isLoggedIn &&

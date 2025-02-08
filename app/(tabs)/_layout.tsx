@@ -1,8 +1,8 @@
 import { useEffect, useState, useContext } from "react";
 import { Tabs, Redirect } from "expo-router";
-import {  Feather } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { AuthContext } from "@/context/UserContext";
-import AntDesign from '@expo/vector-icons/AntDesign';
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 export default function TabsLayout() {
   const auth = useContext(AuthContext);
@@ -40,7 +40,7 @@ export default function TabsLayout() {
           ),
         }}
       />
-      
+
       <Tabs.Screen
         name="Discover"
         options={{
@@ -57,8 +57,8 @@ export default function TabsLayout() {
           options={{
             tabBarLabel: "Add",
             tabBarIcon: ({ color, size }) => (
-
-<AntDesign name="plus" size={24} color="black" />            ),
+              <AntDesign name="plus" size={24} color="black" />
+            ),
           }}
         />
       )}

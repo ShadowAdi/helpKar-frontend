@@ -46,7 +46,7 @@ const UserRegister = () => {
 
     try {
       const response = await fetch(
-        "http://192.168.29.209:3000/api/users/register",
+        "https://help-kar-server.vercel.app/api/users/register",
         {
           method: "POST",
           headers: {

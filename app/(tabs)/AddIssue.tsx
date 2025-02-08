@@ -266,7 +266,7 @@ const AddIssue = () => {
       };
 
       const response = await fetch(
-        "http://192.168.29.209:3000/api/issues/issue",
+        "https://help-kar-server.vercel.app/api/issues/issue",
         {
           method: "POST",
           headers: {

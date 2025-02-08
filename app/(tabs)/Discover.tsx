@@ -26,7 +26,7 @@ const DiscoverScreen = () => {
     const fetchIssues = async () => {
       try {
         const response = await fetch(
-          `http://192.168.29.209:3000/api/issues/issues`
+          `https://help-kar-server.vercel.app/api/issues/issues`
         );
         const data = await response.json();
         if (data.success) {
@@ -40,7 +40,7 @@ const DiscoverScreen = () => {
     const fetchNgos = async () => {
       try {
         const response = await fetch(
-          `http://192.168.29.209:3000/api/ngos/allNgos`
+          `https://help-kar-server.vercel.app/api/ngos/allNgos`
         );
         const data = await response.json();
         if (response.status === 200) {

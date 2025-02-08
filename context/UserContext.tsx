@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setToken(token);
         setRole(role);
         const response = await fetch(
-          `http://192.168.29.209:3000/api/${
+          `https://help-kar-server.vercel.app/api/${
             role === "user" ? "users/loggedInUser" : "ngos/loggedInNgo"
           }`,
           {

@@ -81,7 +81,7 @@ const NgoRegister = () => {
 
     try {
       const response = await fetch(
-        "http://192.168.29.209:3000/api/ngos/create-ngo",
+        "https://help-kar-server.vercel.app/api/ngos/create-ngo",
         {
           method: "POST",
           headers: {

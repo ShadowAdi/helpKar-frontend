@@ -32,7 +32,7 @@ const SingleIssueScreen = () => {
     try {
       if (!issueId) return;
       const response = await fetch(
-        `http://192.168.29.209:3000/api/issues/issues/${issueId}`
+        `https://help-kar-server.vercel.app/api/issues/issues/${issueId}`
       );
       const data = await response.json();
       setSingleIssueData(data?.issue);
@@ -64,7 +64,7 @@ const SingleIssueScreen = () => {
     }
     try {
       const response = await fetch(
-        `http://192.168.29.209:3000/api/issues/upvote/${issueId}`,
+        `https://help-kar-server.vercel.app/api/issues/upvote/${issueId}`,
         {
           method: "PUT",
           headers: {
@@ -96,7 +96,7 @@ const SingleIssueScreen = () => {
     }
     try {
       const response = await fetch(
-        `http://192.168.29.209:3000/api/issues/downvote/${issueId}`,
+        `https://help-kar-server.vercel.app/api/issues/downvote/${issueId}`,
         {
           method: "PUT",
           headers: {
@@ -133,7 +133,7 @@ const SingleIssueScreen = () => {
     }
     try {
       const response = await fetch(
-        `http://192.168.29.209:3000/api/users/follow/${issueId}`,
+        `https://help-kar-server.vercel.app/api/users/follow/${issueId}`,
         {
           method: "PUT",
           headers: {
@@ -166,7 +166,7 @@ const SingleIssueScreen = () => {
 
     try {
       const response = await fetch(
-        `http://192.168.29.209:3000/api/ngos/issue-access/${issueId}`,
+        `https://help-kar-server.vercel.app/api/ngos/issue-access/${issueId}`,
         {
           method: "PUT",
           headers: {

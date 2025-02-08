@@ -97,7 +97,7 @@ const ResolvedIssuePage = () => {
       };
 
       const response = await fetch(
-        "http://192.168.29.209:3000/api/ngos/issue-resolved/"+issueId,
+        "https://help-kar-server.vercel.app/api/ngos/issue-resolved/"+issueId,
         {
           method: "PUT",
           headers: {

@@ -18,7 +18,7 @@ const NgoLogin = () => {
 
     try {
       const response = await fetch(
-        "http://192.168.29.209:3000/api/ngos/login-ngo",
+        "https://help-kar-server.vercel.app/api/ngos/login-ngo",
         {
           method: "POST",
           headers: {

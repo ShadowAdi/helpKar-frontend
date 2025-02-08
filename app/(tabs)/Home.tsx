@@ -34,7 +34,7 @@ const HomeScreen = () => {
   const fetchNearbyIssues = async (latitude: number, longitude: number) => {
     try {
       const response = await fetch(
-        `http://192.168.29.209:3000/api/issues/issues-location-based?latitude=${latitude}&longitude=${longitude}&radius=5000`
+        `https://help-kar-server.vercel.app/api/issues/issues-location-based?latitude=${latitude}&longitude=${longitude}&radius=5000`
       );
       const data = await response.json();
       if (data.success) {
